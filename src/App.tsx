@@ -4,7 +4,6 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { TopNav } from './components/TopNav';
 import { HeaderRow } from './components/HeaderRow';
 import { KpiCards } from './components/KpiCards';
 import { SalesPerformanceCard } from './components/SalesPerformanceCard';
@@ -17,19 +16,14 @@ import { TimeFilter } from './types/dashboard';
 import { Check } from 'lucide-react';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('dashboard');
   const [filter, setFilter] = useState<TimeFilter>('overview');
   const [liveCount, setLiveCount] = useState(1396);
   const [modalType, setModalType] = useState<
-    | 'orders'
-    | 'analytics'
-    | 'products'
-    | 'funnel'
     | 'score'
+    | 'funnel'
     | 'search'
     | 'settings'
     | 'help'
-    | 'insights'
     | null
   >(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -90,33 +84,33 @@ export default function App() {
       {/* Floating Left Vertical Sidebar */}
       <FloatingSidebar
         onOpenSearch={() => setModalType('search')}
-        onOpenTasks={() => setModalType('orders')}
+        onOpenTasks={() => {
+          setToastMessage('11 pending tasks recorded');
+          setTimeout(() => setToastMessage(null), 2000);
+        }}
         onOpenSettings={() => setModalType('settings')}
         onOpenHelp={() => setModalType('help')}
-        onOpenInsights={() => setModalType('insights')}
-        onToggleTheme={() => {
-          setToastMessage('Theme locked to exact design dark palette');
+        onOpenInsights={() => {
+          setToastMessage('Store performance nominal: ahead of plan (+8.5%)');
           setTimeout(() => setToastMessage(null), 2500);
+        }}
+        onToggleTheme={() => {
+          setToastMessage('Theme locked to dark palette');
+          setTimeout(() => setToastMessage(null), 2000);
         }}
       />
 
       {/* Main Container - max-w and gutter matching the reference layout */}
-      <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 xl:px-12 py-4 sm:py-6">
-        {/* Top Navigation */}
-        <TopNav
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-          onOpenOrders={() => setModalType('orders')}
-          onOpenAnalytics={() => setModalType('analytics')}
-          onOpenNotifications={() => setModalType('insights')}
-        />
-
+      <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 xl:px-12 py-5 sm:py-8">
         {/* Dashboard Title & Action Row */}
-        <div className="mt-4 sm:mt-5">
+        <div>
           <HeaderRow
             filter={filter}
             setFilter={setFilter}
-            onOpenAnalytics={() => setModalType('analytics')}
+            onOpenAnalytics={() => {
+              setToastMessage('Full analytics export ready');
+              handleExport();
+            }}
             onExport={handleExport}
             liveCount={liveCount}
           />
@@ -126,9 +120,9 @@ export default function App() {
         <div className="mt-5">
           <KpiCards
             filter={filter}
-            onOpenOrders={() => setModalType('orders')}
-            onOpenAnalytics={() => setModalType('analytics')}
-            onOpenProducts={() => setModalType('products')}
+            onOpenOrders={() => {}}
+            onOpenAnalytics={() => {}}
+            onOpenProducts={() => {}}
             onOpenFunnel={() => setModalType('funnel')}
           />
         </div>
@@ -145,7 +139,7 @@ export default function App() {
 
           {/* Revenue Chart Card (approx 67% / 8 columns) */}
           <div className="lg:col-span-8">
-            <RevenueCard onOpenAnalytics={() => setModalType('analytics')} />
+            <RevenueCard />
           </div>
         </div>
 

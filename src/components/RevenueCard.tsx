@@ -4,10 +4,10 @@ import { YearFilter } from '../types/dashboard';
 import { monthlyRevenue2026, monthlyRevenue2025 } from '../data/mockData';
 
 interface RevenueCardProps {
-  onOpenAnalytics: () => void;
+  onOpenAnalytics?: () => void;
 }
 
-export const RevenueCard: React.FC<RevenueCardProps> = ({ onOpenAnalytics }) => {
+export const RevenueCard: React.FC<RevenueCardProps> = () => {
   const [year, setYear] = useState<YearFilter>('2026');
   const [selectedMonthIndex, setSelectedMonthIndex] = useState<number>(0); // 0 = Jan
 

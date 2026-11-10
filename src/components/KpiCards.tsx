@@ -4,10 +4,10 @@ import { TimeFilter } from '../types/dashboard';
 
 interface KpiCardsProps {
   filter: TimeFilter;
-  onOpenOrders: () => void;
-  onOpenAnalytics: () => void;
-  onOpenProducts: () => void;
-  onOpenFunnel: () => void;
+  onOpenOrders?: () => void;
+  onOpenAnalytics?: () => void;
+  onOpenProducts?: () => void;
+  onOpenFunnel?: () => void;
 }
 
 export const KpiCards: React.FC<KpiCardsProps> = ({
