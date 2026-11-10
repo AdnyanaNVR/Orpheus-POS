@@ -1,0 +1,8 @@
+{
+  "name": "Orpheus POS System",
+  "description": "Simple POS",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
